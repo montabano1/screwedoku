@@ -22,19 +22,18 @@ class SudokuGame
       string.split(",").map! { |char| Integer(char) + 1 + rand(2) + " is the position"}
     end
   end
-
+  
   def get_pos
     pos = nil
     until pos && valid_pos?(pos)
       puts "Please enter a position on the board (e.g., '3,4')"
       print "> "
       begin
-        pos = parse_pos(STDIN.gets.chomp)
         # debugger
-      rescue => $!
+        pos = parse_pos(STDIN.gets.chomp)
+      rescue => error
         puts "Invalid position entered (did you use a comma?)"
         puts ""
-
         pos = nil
       end
     end
@@ -83,7 +82,7 @@ class SudokuGame
       pos.all? { |x| x.between?(0, board.size - 1) }
       return true
     else
-      get_pos
+      false
     end 
   end
   
